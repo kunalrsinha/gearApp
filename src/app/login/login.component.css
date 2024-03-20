@@ -34,6 +34,7 @@ button[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  outline: none !important;
 }
 
 button[type="submit"]:hover {

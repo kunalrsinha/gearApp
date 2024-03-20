@@ -10,10 +10,10 @@
         <span style="display: inline-block;position: absolute;margin-top: 10px; margin-left: -30px;  "><i class="fa-solid fa-baseball-bat-ball fa-xl" style="color: #199b3c;"></i></span>
       </div>
 
-      <div class="error" *ngIf="loginForm?.controls?.['email']?.errors?.['required'] && loginForm?.controls?.['email']?.touched">
+      <div class="error" *ngIf="f['email']?.errors?.['required'] && f['email']?.touched">
         Email is required.
       </div>
-      <div class="error" *ngIf="loginForm?.controls?.['email']?.['errors']?.['email'] && loginForm?.controls?.['email']?.touched" >
+      <div class="error" *ngIf="f['email']?.['errors']?.['email'] && f['email']?.touched" >
         Email must be a valid format.
       </div>
       <div class="">
@@ -21,8 +21,11 @@
         <input type="password" id="password" placeholder="Password" formControlName="password" style="background:transparent; border: 1px solid #199b3c; color: #199b3c;">
         <span style="display: inline-block;position: absolute;margin-top: 10px; margin-left: -30px;  "><i class="fa-regular fa-futbol fa-xl" style="color: #199b3c;"></i></span>
       </div>
-      <div class="error" *ngIf="loginForm?.controls?.['password']?.errors?.['required'] && loginForm?.controls?.['password']?.touched">
+      <div class="error" *ngIf="f['password']?.errors?.['required'] && f['password']?.touched">
         Password is required.
+      </div>
+      <div class="error" *ngIf="f['password']?.errors?.['pattern']">
+        Password should be 8 characters long and a combination of capital and small letters, numbers and special characters.
       </div>
       <div>
         <button type="submit" [disabled]="loginForm.invalid"  >Sign In</button>
