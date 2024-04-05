@@ -16,7 +16,7 @@ export class ForgotPasswordComponent implements OnInit {
   forgetPasswordForm!: FormGroup;
   submitted = false;
   loading: boolean = false;
-
+  public edited = false;
   constructor(private formBuilder: FormBuilder,private router: Router,private authService: AuthServicesService) {
     // this.forgetPasswordForm = this.formBuilder.group({
     //   email: ['', [Validators.required, Validators.email]]
@@ -30,39 +30,51 @@ export class ForgotPasswordComponent implements OnInit {
   }
   get f() { return this.forgetPasswordForm.controls; }
 
-  // successNotification(message: any) {
-  //   Swal.fire({
-  //     text: message,
-  //     icon: "success",
-  //     buttonsStyling: !1,
-  //     confirmButtonText: "Ok, got it!",
-  //     customClass: { confirmButton: "btn btn-primary" }
-  //   }).then(() => {
-  //     console.log('triggered redirect here');
-  //   })
-  // }
-  // alertNotification(message: any) {
-  //   Swal.fire({
-  //     text: message,
-  //     icon: "warning",
-  //     buttonsStyling: !1,
-  //     confirmButtonText: "Ok, got it!",
-  //     customClass: { confirmButton: "btn btn-primary" }
-  //   })
-  // }
-
-  onSubmit() {
-    if (this.forgetPasswordForm.valid) {
-      // Form is valid, send reset password request
-      const email = this.forgetPasswordForm.value.email;
-      // Send reset password request to the backend
-      console.log("Reset password request sent for email:", email);
-    } else {
-      // Form is invalid, display error messages or handle accordingly
-      console.error("Form is invalid");
-    }
+  successNotification(message: any) {
+    Swal.fire({
+      text: message,
+      icon: "success",
+      buttonsStyling: !1,
+      confirmButtonText: "Ok, got it!",
+      customClass: { confirmButton: "btn btn-primary" }
+    }).then(() => {
+      console.log('triggered redirect here');
+    })
+  }
+  alertNotification(message: any) {
+    Swal.fire({
+      text: message,
+      icon: "warning",
+      buttonsStyling: !1,
+      confirmButtonText: "Ok, got it!",
+      customClass: { confirmButton: "btn btn-danger" }
+    })
   }
 
+  onSubmit() {
+    this.submitted = true;
+    if (this.forgetPasswordForm.invalid) {
+      return;
+    }
+    let obj = {
+      email: this.forgetPasswordForm.value.email,
+    }
+    this.authService.forgetPassword(obj).subscribe((data: any) => {
+      if (data && data.status == 200) {
+        this.edited = true;
+        this.successNotification(data.message)
+      }
+      else{
+        this.alertNotification(data.message)
+      }
+    })
+    this.submitted = false;
+    this.forgetPasswordForm.reset();
+  }
+  onReset() {
+    this.submitted = false;
+    this.forgetPasswordForm.reset();
+  }
 
 
 }
