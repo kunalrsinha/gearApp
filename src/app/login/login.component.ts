@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
   }
 
   forgetPassword() {
-    const navigationDetails: string[] = ['auth/forgot-password'];
+    const navigationDetails: string[] = ['forgot-password'];
     this.router.navigate(navigationDetails);
   }
 
