@@ -34,6 +34,11 @@ export class AuthServicesService {
     return this.httpClient.post(`${this.apiUrl}/forgetPassword`, obj);
   }
 
+  // signup  API
+  signup(obj:{name:any;email:any;password:any}){
+    return this.httpClient.post(`${this.apiUrl}/userList`, obj);
+  }
+
   // logout API
   logout() {
     localStorage.removeItem('lmToken')
