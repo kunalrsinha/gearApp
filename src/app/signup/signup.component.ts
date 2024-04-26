@@ -58,12 +58,19 @@ export class SignupComponent implements OnInit {
       if (userDetails && userDetails.status == 200 && userDetails.data != '' && userDetails.data != undefined) {
         setTimeout(() => { this.loading = false; }, 1000);
         this.successNotification(userDetails.message);
+        this.onReset();
       }
       else {
         this.alertNotification(userDetails.message)
       }
     })
   }
+
+  onReset() {
+    this.submitted = false;
+    this.signUpForm.reset();
+  }
+
   ngOnInit(): void {
   }
 
