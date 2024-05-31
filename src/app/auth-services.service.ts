@@ -55,6 +55,16 @@ export class AuthServicesService {
     }
   }
 
+  // resetpassword
+  resetPassword(obj: object) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+    return this.httpClient.post(`${this.apiUrl}/resetPassword`, obj, httpOptions);
+  }
+
   // get token from local storage
   getToken() {
     try {
